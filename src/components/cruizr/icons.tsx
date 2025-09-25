@@ -1,14 +1,11 @@
 import {
-  Briefcase,
-  Users,
-  Heart,
+  Handshake,
+  Sprout,
+  HeartHandshake,
   Flame,
   PartyPopper,
   Ghost,
   type LucideIcon,
-  Sprout,
-  Handshake,
-  HeartHandshake
 } from 'lucide-react';
 import type { Realm, RealmInfo } from '@/lib/types';
 
@@ -31,6 +28,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     color: 'text-blue-400',
     borderColor: 'border-blue-400',
     description: 'Business networking, career connections',
+    mapStyle: 'mapbox://styles/mapbox/streets-v12',
   },
   Social: {
     name: 'Social',
@@ -38,20 +36,23 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     color: 'text-primary',
     borderColor: 'border-primary',
     description: 'Public activities, hobby connections',
+    mapStyle: 'mapbox://styles/mapbox/outdoors-v12',
   },
   Dating: {
     name: 'Dating',
     Icon: HeartHandshake,
-    color: 'text-yellow-400',
-    borderColor: 'border-yellow-400',
+    color: 'text-pink-400',
+    borderColor: 'border-pink-400',
     description: 'Serious dating, romantic connections',
+    mapStyle: 'mapbox://styles/mapbox/dark-v11',
   },
   'Hook Up': {
     name: 'Hook Up',
     Icon: Flame,
-    color: 'text-red-400',
-    borderColor: 'border-red-400',
+    color: 'text-red-500',
+    borderColor: 'border-red-500',
     description: 'FWB, casual encounters',
+    mapStyle: 'mapbox://styles/mapbox/satellite-streets-v12',
   },
   'Party/Etc': {
     name: 'Party/Etc',
@@ -59,6 +60,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     color: 'text-purple-400',
     borderColor: 'border-purple-400',
     description: 'Group fun, kinks, and wild experiences',
+    mapStyle: 'mapbox://styles/mapbox/satellite-streets-v12',
   },
   Ghost: {
     name: 'Ghost',
@@ -66,6 +68,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     color: 'text-slate-400',
     borderColor: 'border-slate-400',
     description: 'Incognito browsing of all realms',
+    mapStyle: 'mapbox://styles/mapbox/navigation-night-v1',
   },
 };
 

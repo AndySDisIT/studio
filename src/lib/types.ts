@@ -17,6 +17,7 @@ export type RealmInfo = {
   color: string;
   borderColor: string;
   description: string;
+  mapStyle: string;
 };
 
 export type User = {
@@ -24,7 +25,7 @@ export type User = {
   name: string;
   initials: string;
   realm: Realm[];
-  position: { x: number; y: number };
+  position: { x: number; y: number }; // latitude, longitude
   avatar: string;
   profile: string;
 };
