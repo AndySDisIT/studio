@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { UserProfileCard } from './user-profile-card';
 import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { realmInfoMap } from './icons';
 
 interface MapViewProps {
   activeRealm: Realm;
@@ -16,6 +17,8 @@ interface MapViewProps {
 
 export function MapView({ activeRealm, veilMode }: MapViewProps) {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const realmInfo = realmInfoMap[activeRealm];
 
   const filteredUsers = useMemo(() => {
     if (activeRealm === 'Ghost') {
@@ -39,6 +42,12 @@ export function MapView({ activeRealm, veilMode }: MapViewProps) {
   return (
     <TooltipProvider>
       <div className="relative h-full w-full bg-gray-900/50 dark:bg-black/80 overflow-hidden border border-border rounded-lg">
+        <div className="absolute top-4 left-4 z-10 bg-background/80 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+                <realmInfo.Icon className={cn('size-5', realmInfo.color)} />
+                {activeRealm} Realm
+            </h2>
+        </div>
         {/* Placeholder for map background */}
         <div className="absolute inset-0 bg-grid-slate-700/[0.2] [mask-image:linear-gradient(to_bottom,white_20%,transparent_100%)]"></div>
         <AnimatePresence>
@@ -61,8 +70,9 @@ export function MapView({ activeRealm, veilMode }: MapViewProps) {
                   <TooltipTrigger asChild>
                     <button onClick={() => setSelectedUser(user)}>
                       <Avatar className={cn(
-                        "h-12 w-12 border-2 border-background shadow-lg transition-all duration-300 hover:scale-110",
+                        "h-12 w-12 border-4 shadow-lg transition-all duration-300 hover:scale-110",
                         veilMode.blurAvatars && 'blur-sm',
+                        realmInfo.borderColor
                       )}>
                         <AvatarImage src={user.avatar} alt={user.name} data-ai-hint="person portrait" />
                         <AvatarFallback>{user.initials}</AvatarFallback>

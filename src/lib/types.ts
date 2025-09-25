@@ -15,6 +15,7 @@ export type RealmInfo = {
   name: Realm;
   Icon: LucideIcon;
   color: string;
+  borderColor: string;
   description: string;
 };
 
