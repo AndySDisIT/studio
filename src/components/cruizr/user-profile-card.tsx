@@ -5,15 +5,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { realmInfoMap } from './icons';
 import type { User, VeilModeSettings, Realm } from '@/lib/types';
 import { IcebreakerSuggester } from './icebreaker-suggester';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
+import { ProfileSummaryGenerator } from './profile-summary-generator';
 
 interface UserProfileCardProps {
   user: User | null;
@@ -57,7 +56,7 @@ export function UserProfileCard({
             </DialogHeader>
 
             <div className="my-6 space-y-4 text-sm text-muted-foreground">
-                <p className="text-center">{user.profile}</p>
+                <ProfileSummaryGenerator userProfile={user.profile} realm={activeRealm} />
             </div>
 
             <IcebreakerSuggester
