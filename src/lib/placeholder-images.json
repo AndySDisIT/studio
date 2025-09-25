@@ -1,3 +1,94 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user1",
+      "description": "A smiling woman in a professional setting",
+      "imageUrl": "https://images.unsplash.com/photo-1600275669439-14e40452d20b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx3b21hbiUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NTg3MDQ0NDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman professional"
+    },
+    {
+      "id": "user2",
+      "description": "A man in a casual outdoor environment",
+      "imageUrl": "https://images.unsplash.com/photo-1695485121912-25c7ea05119c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYW4lMjBvdXRkb29yc3xlbnwwfHx8fDE3NTg3MzczOTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man outdoors"
+    },
+    {
+      "id": "user3",
+      "description": "A person at a cafe, looking thoughtful",
+      "imageUrl": "https://images.unsplash.com/photo-1637766899618-8c751a1e06bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBjYWZlfGVufDB8fHx8MTc1ODczMzQ3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person cafe"
+    },
+    {
+      "id": "user4",
+      "description": "A person laughing at a party",
+      "imageUrl": "https://images.unsplash.com/photo-1689200049785-abed9d7da79d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwYXJ0eXxlbnwwfHx8fDE3NTg4MjA0NzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person party"
+    },
+    {
+      "id": "user5",
+      "description": "An artist in their studio",
+      "imageUrl": "https://images.unsplash.com/photo-1613463639651-4aca3f3dd83e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhcnRpc3QlMjBzdHVkaW98ZW58MHx8fHwxNzU4ODE2MjAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "artist studio"
+    },
+    {
+      "id": "user6",
+      "description": "A hiker on a mountain top",
+      "imageUrl": "https://images.unsplash.com/photo-1667021901319-ff71b9036cd9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxoaWtlciUyMG1vdW50YWlufGVufDB8fHx8MTc1ODgxNjIwNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "hiker mountain"
+    },
+    {
+      "id": "user7",
+      "description": "A programmer coding on a laptop",
+      "imageUrl": "https://images.unsplash.com/photo-1537111261224-6fa49cecda2f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm9ncmFtbWVyJTIwY29kaW5nfGVufDB8fHx8MTc1ODgyMDQ3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "programmer coding"
+    },
+    {
+      "id": "user8",
+      "description": "A person reading a book in a park",
+      "imageUrl": "https://images.unsplash.com/photo-1595111633191-7a8c1b0f7f98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwZXJzb24lMjByZWFkaW5nfGVufDB8fHx8MTc1ODc5ODY5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person reading"
+    },
+    {
+      "id": "user9",
+      "description": "A chef in a kitchen",
+      "imageUrl": "https://images.unsplash.com/photo-1621494548002-bfc916172ead?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGVmJTIwa2l0Y2hlbnxlbnwwfHx8fDE3NTg3MjAyNDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "chef kitchen"
+    },
+    {
+      "id": "user10",
+      "description": "A DJ at a music festival",
+      "imageUrl": "https://images.unsplash.com/photo-1506157786151-b8491531f063?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxkaiUyMGZlc3RpdmFsfGVufDB8fHx8MTc1ODgyMDQ3MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dj festival"
+    },
+    {
+      "id": "user11",
+      "description": "A person in a stylish outfit in a city at night",
+      "imageUrl": "https://images.unsplash.com/photo-1697581581183-bfd1c5e3bb15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGVyc29uJTIwY2l0eXxlbnwwfHx8fDE3NTg3OTYxNzF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person city"
+    },
+    {
+      "id": "user12",
+      "description": "A couple on a dinner date",
+      "imageUrl": "https://images.unsplash.com/photo-1542557497-4c7b03d0d245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb3VwbGUlMjBkaW5uZXJ8ZW58MHx8fHwxNzU4Nzg1Nzk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "couple dinner"
+    },
+    {
+      "id": "user13",
+      "description": "A group of friends at a concert",
+      "imageUrl": "https://images.unsplash.com/photo-1609136141297-484fdb422ed1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxmcmllbmRzJTIwY29uY2VydHxlbnwwfHx8fDE3NTg3MzIwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "friends concert"
+    },
+    {
+      "id": "user14",
+      "description": "A person dressed for a costume party",
+      "imageUrl": "https://images.unsplash.com/photo-1609263712972-78b37d070252?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjb3N0dW1lJTIwcGFydHl8ZW58MHx8fHwxNzU4ODIwNDcwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "costume party"
+    },
+    {
+      "id": "user15",
+      "description": "A mysterious figure in a dimly lit alley",
+      "imageUrl": "https://images.unsplash.com/photo-1742138104342-eee6ce6ed855?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxteXN0ZXJpb3VzJTIwZmlndXJlfGVufDB8fHx8MTc1ODc0MjIxNHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mysterious figure"
+    }
+  ]
 }
