@@ -19,6 +19,8 @@ import { Switch } from '@/components/ui/switch';
 import type { Realm, VeilModeSettings } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Badge } from '../ui/badge';
+import Link from 'next/link';
+import { Wand2 } from 'lucide-react';
 
 interface RealmSidebarProps {
   activeRealm: Realm;
@@ -67,6 +69,22 @@ export function RealmSidebar({
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+            <SidebarMenuItem>
+                <Link href="/avatar-generator" className="w-full">
+                    <SidebarMenuButton
+                        className="h-12"
+                        tooltip={{ children: 'Avatar Generator', side: 'right' }}
+                    >
+                        <Wand2 className="size-5 text-yellow-400" />
+                        <div className="flex flex-col items-start">
+                        <span className="font-medium">Avatar Gen</span>
+                        <span className="text-xs text-muted-foreground">
+                            Create a new avatar
+                        </span>
+                        </div>
+                    </SidebarMenuButton>
+                </Link>
+            </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <Separator />
