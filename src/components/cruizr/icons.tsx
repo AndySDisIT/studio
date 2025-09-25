@@ -6,6 +6,9 @@ import {
   PartyPopper,
   Ghost,
   type LucideIcon,
+  Sprout,
+  Handshake,
+  HeartHandshake
 } from 'lucide-react';
 import type { Realm, RealmInfo } from '@/lib/types';
 
@@ -24,27 +27,27 @@ export const CruizrLogo = (props: React.SVGProps<SVGSVGElement>) => (
 export const realmInfoMap: Record<Realm, RealmInfo> = {
   Professional: {
     name: 'Professional',
-    Icon: Briefcase,
+    Icon: Handshake,
     color: 'text-blue-400',
-    description: 'Business networking and career connections',
+    description: 'Business networking, career connections',
   },
   Social: {
     name: 'Social',
-    Icon: Users,
+    Icon: Sprout,
     color: 'text-green-400',
-    description: 'Casual activities and public meetups',
+    description: 'Public activities, hobby connections',
   },
   Dating: {
     name: 'Dating',
-    Icon: Heart,
+    Icon: HeartHandshake,
     color: 'text-yellow-400',
-    description: 'Serious dating and romantic connections',
+    description: 'Serious dating, romantic connections',
   },
   'Hook Up': {
     name: 'Hook Up',
     Icon: Flame,
     color: 'text-red-400',
-    description: 'Casual encounters and FWB',
+    description: 'FWB, casual encounters',
   },
   'Party/Etc': {
     name: 'Party/Etc',
