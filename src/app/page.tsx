@@ -9,7 +9,6 @@ import {
   Sidebar,
   SidebarInset,
 } from '@/components/ui/sidebar';
-import { Toaster } from '@/components/ui/toaster';
 
 export default function Home() {
   const [activeRealm, setActiveRealm] = useState<Realm>('Social');
@@ -34,7 +33,6 @@ export default function Home() {
           <MapView activeRealm={activeRealm} veilMode={veilMode} />
         </main>
       </SidebarInset>
-      <Toaster />
     </SidebarProvider>
   );
 }
