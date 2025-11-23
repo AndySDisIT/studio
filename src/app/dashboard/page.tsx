@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { realmList, CruizrLogo } from '@/components/cruizr/icons';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import type { Realm } from '@/lib/types';
 import Link from 'next/link';
@@ -19,10 +19,7 @@ export default function DashboardPage() {
     setSelectedRealm(realmName);
     setIsExiting(true);
     setTimeout(() => {
-      router.push(`/map`);
-      // Note: In a real app, you'd pass the selected realm to the map page,
-      // e.g., router.push(`/map?realm=${realmName}`);
-      // For this prototype, we will assume the map page defaults to a realm.
+      router.push(`/map?realm=${encodeURIComponent(realmName)}`);
     }, 500); // Match this with animation duration
   };
 
@@ -46,7 +43,7 @@ export default function DashboardPage() {
         <p className="text-muted-foreground mt-2">Select your desired social context to begin exploring.</p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl">
         {realmList.map(({ name, Icon, color, description }) => (
           <Card
             key={name}
@@ -64,7 +61,7 @@ export default function DashboardPage() {
           </Card>
         ))}
          <Card
-            className={'cursor-pointer hover:shadow-lg transition-shadow duration-300 hover:border-primary/50'}
+            className={'cursor-pointer hover:shadow-lg transition-shadow duration-300 hover:border-primary/50 col-span-2 md:col-span-1'}
           >
             <Link href="/avatar-generator" className="w-full h-full">
                 <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
