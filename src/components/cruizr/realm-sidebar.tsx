@@ -20,7 +20,7 @@ import type { Realm, VeilModeSettings } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Badge } from '../ui/badge';
 import Link from 'next/link';
-import { Wand2 } from 'lucide-react';
+import { Wand2, LayoutDashboard } from 'lucide-react';
 
 interface RealmSidebarProps {
   activeRealm: Realm;
@@ -38,19 +38,40 @@ export function RealmSidebar({
   return (
     <>
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-2">
-          <CruizrLogo className="size-8 text-primary" />
-          <div className="flex flex-col">
-            <h2 className="text-lg font-semibold tracking-tight">Cruizr</h2>
-            <p className="text-xs text-muted-foreground">
-              Find your connection.
-            </p>
-          </div>
-        </div>
+        <Link href="/dashboard" className="w-full">
+            <div className="flex items-center gap-2">
+            <CruizrLogo className="size-8 text-primary" />
+            <div className="flex flex-col">
+                <h2 className="text-lg font-semibold tracking-tight">Cruizr</h2>
+                <p className="text-xs text-muted-foreground">
+                Find your connection.
+                </p>
+            </div>
+            </div>
+        </Link>
       </SidebarHeader>
       <Separator />
       <SidebarContent>
         <SidebarMenu>
+          <SidebarMenuItem>
+              <Link href="/dashboard" className="w-full">
+                  <SidebarMenuButton
+                      className="h-12"
+                      tooltip={{ children: 'Dashboard', side: 'right' }}
+                  >
+                      <LayoutDashboard className="size-5" />
+                      <div className="flex flex-col items-start">
+                      <span className="font-medium">Dashboard</span>
+                      <span className="text-xs text-muted-foreground">
+                          Select your realm
+                      </span>
+                      </div>
+                  </SidebarMenuButton>
+              </Link>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Separator />
+          </SidebarMenuItem>
           {realmList.map(({ name, Icon, color, description }) => (
             <SidebarMenuItem key={name}>
               <SidebarMenuButton
@@ -69,22 +90,6 @@ export function RealmSidebar({
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
-            <SidebarMenuItem>
-                <Link href="/avatar-generator" className="w-full">
-                    <SidebarMenuButton
-                        className="h-12"
-                        tooltip={{ children: 'Avatar Generator', side: 'right' }}
-                    >
-                        <Wand2 className="size-5 text-yellow-400" />
-                        <div className="flex flex-col items-start">
-                        <span className="font-medium">Avatar Gen</span>
-                        <span className="text-xs text-muted-foreground">
-                            Create a new avatar
-                        </span>
-                        </div>
-                    </SidebarMenuButton>
-                </Link>
-            </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
       <Separator />

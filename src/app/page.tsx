@@ -62,7 +62,7 @@ export default function LoginPage() {
               </span>
             </div>
           </div>
-          <Button variant="outline" className="w-full" onClick={() => router.push('/dashboard')}>
+          <Button variant="outline" className="w-full" onClick={(e) => handleLogin(e)}>
             <Chrome className="mr-2" />
             Sign in with Google
           </Button>
