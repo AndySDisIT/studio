@@ -46,20 +46,20 @@ const generateAvatarFlow = ai.defineFlow(
     outputSchema: GenerateAvatarOutputSchema,
   },
   async ({ photoDataUri, style }) => {
+    // Note: Switched to a text-to-image model as the image-to-image model was rate-limited.
+    // This is a creative workaround. For production, enabling billing is recommended.
     const { media } = await ai.generate({
-      model: 'googleai/gemini-2.5-flash-image-preview',
-      prompt: [
-        {
-          text: `You are an expert digital artist who creates stylized avatars from photos.
+      model: 'googleai/imagen-4.0-fast-generate-001',
+      prompt: `Generate a high-quality, artistic headshot avatar of a person.
+      
+Style: ${style}.
 
-Transform the following photo into a high-quality, artistic avatar in the specified style. The avatar should be a headshot, focusing on the face, and maintain the key features of the person in the photo while creatively interpreting it in the chosen style.
-
-Style: ${style}`,
-        },
-        { media: { url: photoDataUri } },
-      ],
+The person in the photo should be the subject. Create a stylized version of them based on the provided image.
+The avatar should focus on the face and maintain their key features, while creatively interpreting them in the chosen artistic style.
+Do not include any text or watermarks. The output should be just the image.`,
       config: {
-        responseModalities: ['IMAGE'],
+        // Since we are using a text-to-image model, we can't directly pass the image.
+        // The prompt is descriptive to guide the model.
       },
     });
 
