@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles, Wand2 } from 'lucide-react';
 import { generateAvatar } from '@/ai/flows/generate-avatar';
 import Image from 'next/image';
+import { Label } from '@/components/ui/label';
 
 const avatarStyles = ["Anime", "Cyberpunk", "Fantasy", "Pixel Art", "Cartoon", "3D", "Abstract", "Futuristic"];
 
