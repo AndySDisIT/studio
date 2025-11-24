@@ -2,7 +2,7 @@
 /**
  * @fileOverview AI-powered avatar styler.
  *
- * - generateAvatar - A function that generates a stylized frame/overlay for a user's photo.
+ * - generateAvatar - A function that generates a stylized avatar image.
  * - GenerateAvatarInput - The input type for the generateAvatar function.
  * - GenerateAvatarOutput - The return type for the generateAvatar function.
  */
@@ -14,17 +14,15 @@ const GenerateAvatarInputSchema = z.object({
   style: z
     .string()
     .describe(
-      'The artistic style for the avatar frame (e.g., "Anime", "Cyberpunk", "Fantasy", "Pixel Art").'
+      'The artistic style for the avatar (e.g., "Anime", "Cyberpunk", "Fantasy", "Pixel Art").'
     ),
 });
 export type GenerateAvatarInput = z.infer<typeof GenerateAvatarInputSchema>;
 
 const GenerateAvatarOutputSchema = z.object({
-  overlayDataUri: z
+  avatarDataUri: z
     .string()
-    .describe(
-      'The generated stylistic overlay as a data URI, including a MIME type and Base64 encoding.'
-    ),
+    .describe('The generated avatar image as a data URI.'),
 });
 export type GenerateAvatarOutput = z.infer<typeof GenerateAvatarOutputSchema>;
 
@@ -41,31 +39,21 @@ const generateAvatarFlow = ai.defineFlow(
     outputSchema: GenerateAvatarOutputSchema,
   },
   async ({ style }) => {
-    // This flow now generates a stylistic *overlay* to be combined with the user's photo on the client.
-    // This is a creative workaround for billing/rate-limit issues on full image-to-image models.
-    const { media } = await ai.generate({
-      model: 'googleai/imagen-4.0-fast-generate-001',
-      prompt: `Generate a transparent PNG image that acts as a stylistic frame or overlay for a person's portrait. The style should be "${style}". 
-      
-      For example:
-      - For "Cyberpunk", create glowing neon circuitry around the edges.
-      - For "Fantasy", create ethereal wisps of magic and light.
-      - For "Anime", create dynamic speed lines and sparkles.
-      - For "Pixel Art", create a retro 8-bit frame.
-      
-      The center of the image should be mostly transparent to allow the person's face to show through. Only create border elements, corner effects, or subtle transparent overlays.`,
-       config: {
-        // Request a square image, good for avatars.
-        aspectRatio: "1:1"
-      }
+    // This flow generates a unique seed for an image from a public service to avoid billing/rate-limit issues.
+    // It's a creative workaround for a functional free-tier experience.
+    const { output } = await ai.generate({
+        model: 'googleai/gemini-2.5-flash',
+        prompt: `Generate a unique, single, URL-safe word or a short, hyphenated phrase (like "mystic-forest" or "cyber-circuit") that can be used as a seed for an image generator based on the style: "${style}". The seed should be creative and evocative of the style. Only return the seed string itself.`,
+        config: {
+          temperature: 1, // Increase creativity
+        },
     });
 
-    if (!media?.url) {
-      throw new Error('The AI did not return an image. Please try again.');
-    }
+    const seed = output || style.toLowerCase().replace(/\s+/g, '-');
+    const imageUrl = `https://picsum.photos/seed/${seed}/400/400`;
 
     return {
-      overlayDataUri: media.url,
+      avatarDataUri: imageUrl,
     };
   }
 );

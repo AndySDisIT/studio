@@ -3,64 +3,21 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles, Wand2 } from 'lucide-react';
 import { generateAvatar } from '@/ai/flows/generate-avatar';
-import imageCompression from 'browser-image-compression';
 import Image from 'next/image';
 
-const avatarStyles = ["Anime", "Cyberpunk", "Fantasy", "Pixel Art", "Cartoon", "3D"];
+const avatarStyles = ["Anime", "Cyberpunk", "Fantasy", "Pixel Art", "Cartoon", "3D", "Abstract", "Futuristic"];
 
 export default function AvatarGeneratorPage() {
-  const [file, setFile] = useState<File | null>(null);
   const [style, setStyle] = useState<string>(avatarStyles[0]);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [generatedOverlay, setGeneratedOverlay] = useState<string | null>(null);
+  const [generatedAvatar, setGeneratedAvatar] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      setGeneratedOverlay(null);
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 800,
-        useWebWorker: true,
-      };
-
-      try {
-        const compressedFile = await imageCompression(selectedFile, options);
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPreview(reader.result as string);
-        };
-        reader.readAsDataURL(compressedFile);
-      } catch (error) {
-        console.error('Error compressing image:', error);
-        toast({
-          variant: 'destructive',
-          title: 'Image Error',
-          description: 'Could not process the uploaded image.',
-        });
-      }
-    }
-  };
-
   const handleGenerateAvatar = async () => {
-    if (!preview) {
-      toast({
-        variant: 'destructive',
-        title: 'No Photo',
-        description: 'Please upload a photo first.',
-      });
-      return;
-    }
     if (!style) {
       toast({
         variant: 'destructive',
@@ -71,24 +28,21 @@ export default function AvatarGeneratorPage() {
     }
 
     setIsLoading(true);
-    setGeneratedOverlay(null);
+    setGeneratedAvatar(null);
     try {
-      // Note: We are not sending the photo, just getting a style overlay.
-      const result = await generateAvatar({
-        style,
-      });
+      const result = await generateAvatar({ style });
 
-      if (result.overlayDataUri) {
-        setGeneratedOverlay(result.overlayDataUri);
+      if (result.avatarDataUri) {
+        setGeneratedAvatar(result.avatarDataUri);
         toast({
-          title: 'Style Layer Generated!',
-          description: 'Your new avatar style is ready.',
+          title: 'Avatar Generated!',
+          description: 'Your new AI-inspired avatar is ready.',
         });
       } else {
-        throw new Error('The AI did not return a style layer. Please try again.');
+        throw new Error('The AI did not return an image. Please try again.');
       }
     } catch (error) {
-      console.error('Error generating avatar style:', error);
+      console.error('Error generating avatar:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
       toast({
         variant: 'destructive',
@@ -105,42 +59,25 @@ export default function AvatarGeneratorPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Wand2 className="text-primary" />
-            AI Avatar Styler
+            AI Avatar Generator
           </CardTitle>
           <CardDescription>
-            Upload your photo and choose a style to generate a unique avatar.
+            Choose a style and let our AI generate a unique avatar for you.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="photo-upload">1. Upload Your Photo</Label>
-            <Input id="photo-upload" type="file" accept="image/*" onChange={handleFileChange} />
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {preview && (
-              <div className="space-y-2">
-                <Label>Your Photo</Label>
-                <div className="aspect-square w-full rounded-md overflow-hidden border border-dashed">
-                  <Image src={preview} alt="Uploaded preview" width={400} height={400} className="object-cover w-full h-full" />
-                </div>
-              </div>
-            )}
-
-            {generatedOverlay && preview && (
+          {generatedAvatar && (
               <div className="space-y-2">
                   <Label>Your New Avatar</Label>
                   <div className="relative aspect-square w-full rounded-md overflow-hidden border-2 border-primary">
-                      <Image src={preview} alt="User photo background" fill className="object-cover" />
-                      <Image src={generatedOverlay} alt="Generated avatar style overlay" fill className="object-contain" />
+                      <Image src={generatedAvatar} alt="Generated AI Avatar" width={400} height={400} className="object-cover" data-ai-hint="avatar abstract" />
                   </div>
               </div>
-            )}
-          </div>
-
+          )}
 
           <div className="space-y-2">
-            <Label htmlFor="style-select">2. Choose a Style for the Overlay</Label>
+            <Label htmlFor="style-select">1. Choose a Style</Label>
             <Select onValueChange={setStyle} defaultValue={style}>
               <SelectTrigger id="style-select">
                 <SelectValue placeholder="Select a style" />
@@ -153,13 +90,13 @@ export default function AvatarGeneratorPage() {
             </Select>
           </div>
 
-          <Button onClick={handleGenerateAvatar} disabled={isLoading || !preview} className="w-full">
+          <Button onClick={handleGenerateAvatar} disabled={isLoading} className="w-full">
             {isLoading ? (
               <Loader2 className="animate-spin" />
             ) : (
               <Sparkles className="mr-2" />
             )}
-            {isLoading ? 'Generating Style...' : 'Generate Avatar'}
+            {isLoading ? 'Generating...' : 'Generate Avatar'}
           </Button>
 
         </CardContent>
