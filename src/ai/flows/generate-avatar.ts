@@ -28,7 +28,7 @@ const GenerateAvatarOutputSchema = z.object({
   avatarDataUri: z
     .string()
     .describe(
-      "The generated avatar image as a data URI, including a MIME type and Base64 encoding."
+      'The generated avatar image as a data URI, including a MIME type and Base64 encoding.'
     ),
 });
 export type GenerateAvatarOutput = z.infer<typeof GenerateAvatarOutputSchema>;
@@ -39,39 +39,38 @@ export async function generateAvatar(
   return generateAvatarFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'generateAvatarPrompt',
-  input: { schema: GenerateAvatarInputSchema },
-  output: { schema: GenerateAvatarOutputSchema },
-  prompt: `You are an expert digital artist who creates stylized avatars from photos.
-
-  Transform the following photo into a high-quality, artistic avatar in the specified style. The avatar should be a headshot, focusing on the face, and maintain the key features of the person in the photo while creatively interpreting it in the chosen style.
-
-  Style: {{{style}}}
-  Photo: {{media url=photoDataUri}}
-
-  Output the generated image as a data URI.`,
-  config: {
-    responseModalities: ['IMAGE', 'TEXT'],
-  },
-  model: 'googleai/gemini-2.5-flash-image-preview',
-});
-
 const generateAvatarFlow = ai.defineFlow(
   {
     name: 'generateAvatarFlow',
     inputSchema: GenerateAvatarInputSchema,
     outputSchema: GenerateAvatarOutputSchema,
   },
-  async input => {
-    const { output } = await prompt(input);
+  async ({ photoDataUri, style }) => {
+    const { media } = await ai.generate({
+      model: 'googleai/gemini-2.5-flash-image-preview',
+      prompt: [
+        {
+          text: `You are an expert digital artist who creates stylized avatars from photos.
 
-    if (!output?.media) {
-        throw new Error('Avatar generation failed: No image was returned from the model.');
+Transform the following photo into a high-quality, artistic avatar in the specified style. The avatar should be a headshot, focusing on the face, and maintain the key features of the person in the photo while creatively interpreting it in the chosen style.
+
+Style: ${style}`,
+        },
+        { media: { url: photoDataUri } },
+      ],
+      config: {
+        responseModalities: ['IMAGE'],
+      },
+    });
+
+    if (!media?.url) {
+      throw new Error(
+        'Avatar generation failed: No image was returned from the model.'
+      );
     }
-    
+
     return {
-        avatarDataUri: output.media.url
+      avatarDataUri: media.url,
     };
   }
 );
