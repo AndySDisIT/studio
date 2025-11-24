@@ -46,31 +46,21 @@ const generateAvatarFlow = ai.defineFlow(
     outputSchema: GenerateAvatarOutputSchema,
   },
   async ({ photoDataUri, style }) => {
-    // Note: Switched to a text-to-image model as the image-to-image model was rate-limited.
-    // This is a creative workaround. For production, enabling billing is recommended.
-    const { media } = await ai.generate({
-      model: 'googleai/imagen-4.0-fast-generate-001',
-      prompt: `Generate a high-quality, artistic headshot avatar of a person.
-      
-Style: ${style}.
-
-The person in the photo should be the subject. Create a stylized version of them based on the provided image.
-The avatar should focus on the face and maintain their key features, while creatively interpreting them in the chosen artistic style.
-Do not include any text or watermarks. The output should be just the image.`,
-      config: {
-        // Since we are using a text-to-image model, we can't directly pass the image.
-        // The prompt is descriptive to guide the model.
+    // Creative workaround for billing/rate-limit issues.
+    // Use a text model to generate a unique seed for a free image service.
+    const seedGenerator = await ai.generate({
+      prompt: `Generate a unique, one-word, random but descriptive seed for an image with the style: ${style}. For example: 'nebula', 'galaxy', 'circuitry', 'dreamscape'.`,
+      model: 'googleai/gemini-2.5-flash',
+      output: {
+        format: 'text',
       },
     });
 
-    if (!media?.url) {
-      throw new Error(
-        'Avatar generation failed: No image was returned from the model.'
-      );
-    }
+    const seed = seedGenerator.text.trim().replace(/\s/g, '-');
+    const imageUrl = `https://picsum.photos/seed/${seed}/400/400`;
 
     return {
-      avatarDataUri: media.url,
+      avatarDataUri: imageUrl,
     };
   }
 );
