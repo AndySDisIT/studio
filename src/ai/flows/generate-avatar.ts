@@ -1,8 +1,8 @@
 'use server';
 /**
- * @fileOverview AI-powered avatar generator.
+ * @fileOverview AI-powered avatar styler.
  *
- * - generateAvatar - A function that generates a stylized avatar from a user's photo.
+ * - generateAvatar - A function that generates a stylized frame/overlay for a user's photo.
  * - GenerateAvatarInput - The input type for the generateAvatar function.
  * - GenerateAvatarOutput - The return type for the generateAvatar function.
  */
@@ -11,24 +11,19 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
 const GenerateAvatarInputSchema = z.object({
-  photoDataUri: z
-    .string()
-    .describe(
-      "A photo of a person, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
-    ),
   style: z
     .string()
     .describe(
-      'The artistic style for the avatar (e.g., "Anime", "Cyberpunk", "Fantasy", "Pixel Art").'
+      'The artistic style for the avatar frame (e.g., "Anime", "Cyberpunk", "Fantasy", "Pixel Art").'
     ),
 });
 export type GenerateAvatarInput = z.infer<typeof GenerateAvatarInputSchema>;
 
 const GenerateAvatarOutputSchema = z.object({
-  avatarDataUri: z
+  overlayDataUri: z
     .string()
     .describe(
-      'The generated avatar image as a data URI, including a MIME type and Base64 encoding.'
+      'The generated stylistic overlay as a data URI, including a MIME type and Base64 encoding.'
     ),
 });
 export type GenerateAvatarOutput = z.infer<typeof GenerateAvatarOutputSchema>;
@@ -45,22 +40,32 @@ const generateAvatarFlow = ai.defineFlow(
     inputSchema: GenerateAvatarInputSchema,
     outputSchema: GenerateAvatarOutputSchema,
   },
-  async ({ photoDataUri, style }) => {
-    // Creative workaround for billing/rate-limit issues.
-    // Use a text model to generate a unique seed for a free image service.
-    const seedGenerator = await ai.generate({
-      prompt: `Generate a unique, one-word, random but descriptive seed for an image with the style: ${style}. For example: 'nebula', 'galaxy', 'circuitry', 'dreamscape'.`,
-      model: 'googleai/gemini-2.5-flash',
-      output: {
-        format: 'text',
-      },
+  async ({ style }) => {
+    // This flow now generates a stylistic *overlay* to be combined with the user's photo on the client.
+    // This is a creative workaround for billing/rate-limit issues on full image-to-image models.
+    const { media } = await ai.generate({
+      model: 'googleai/imagen-4.0-fast-generate-001',
+      prompt: `Generate a transparent PNG image that acts as a stylistic frame or overlay for a person's portrait. The style should be "${style}". 
+      
+      For example:
+      - For "Cyberpunk", create glowing neon circuitry around the edges.
+      - For "Fantasy", create ethereal wisps of magic and light.
+      - For "Anime", create dynamic speed lines and sparkles.
+      - For "Pixel Art", create a retro 8-bit frame.
+      
+      The center of the image should be mostly transparent to allow the person's face to show through. Only create border elements, corner effects, or subtle transparent overlays.`,
+       config: {
+        // Request a square image, good for avatars.
+        aspectRatio: "1:1"
+      }
     });
 
-    const seed = seedGenerator.text.trim().replace(/\s/g, '-');
-    const imageUrl = `https://picsum.photos/seed/${seed}/400/400`;
+    if (!media?.url) {
+      throw new Error('The AI did not return an image. Please try again.');
+    }
 
     return {
-      avatarDataUri: imageUrl,
+      overlayDataUri: media.url,
     };
   }
 );

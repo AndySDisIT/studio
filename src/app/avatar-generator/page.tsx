@@ -18,7 +18,7 @@ export default function AvatarGeneratorPage() {
   const [file, setFile] = useState<File | null>(null);
   const [style, setStyle] = useState<string>(avatarStyles[0]);
   const [preview, setPreview] = useState<string | null>(null);
-  const [generatedAvatar, setGeneratedAvatar] = useState<string | null>(null);
+  const [generatedOverlay, setGeneratedOverlay] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
@@ -26,7 +26,7 @@ export default function AvatarGeneratorPage() {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      setGeneratedAvatar(null);
+      setGeneratedOverlay(null);
 
       const options = {
         maxSizeMB: 1,
@@ -71,28 +71,28 @@ export default function AvatarGeneratorPage() {
     }
 
     setIsLoading(true);
-    setGeneratedAvatar(null);
+    setGeneratedOverlay(null);
     try {
+      // Note: We are not sending the photo, just getting a style overlay.
       const result = await generateAvatar({
-        photoDataUri: preview,
         style,
       });
 
-      if (result.avatarDataUri) {
-        setGeneratedAvatar(result.avatarDataUri);
+      if (result.overlayDataUri) {
+        setGeneratedOverlay(result.overlayDataUri);
         toast({
-          title: 'Avatar Generated!',
-          description: 'Your new avatar is ready.',
+          title: 'Style Layer Generated!',
+          description: 'Your new avatar style is ready.',
         });
       } else {
-        throw new Error('The AI did not return an avatar. Please try again.');
+        throw new Error('The AI did not return a style layer. Please try again.');
       }
     } catch (error) {
-      console.error('Error generating avatar:', error);
+      console.error('Error generating avatar style:', error);
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
       toast({
         variant: 'destructive',
-        title: 'Avatar Generation Failed',
+        title: 'Generation Failed',
         description: errorMessage,
       });
     }
@@ -105,29 +105,42 @@ export default function AvatarGeneratorPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Wand2 className="text-primary" />
-            AI Avatar Generator
+            AI Avatar Styler
           </CardTitle>
           <CardDescription>
-            Upload your photo and choose a style to create a unique avatar.
+            Upload your photo and choose a style to generate a unique avatar.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="photo-upload">1. Upload a Photo</Label>
+            <Label htmlFor="photo-upload">1. Upload Your Photo</Label>
             <Input id="photo-upload" type="file" accept="image/*" onChange={handleFileChange} />
           </div>
 
-          {preview && (
-            <div className="space-y-2">
-              <Label>Your Photo</Label>
-              <div className="aspect-square w-full rounded-md overflow-hidden border border-dashed">
-                <Image src={preview} alt="Uploaded preview" width={400} height={400} className="object-cover w-full h-full" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {preview && (
+              <div className="space-y-2">
+                <Label>Your Photo</Label>
+                <div className="aspect-square w-full rounded-md overflow-hidden border border-dashed">
+                  <Image src={preview} alt="Uploaded preview" width={400} height={400} className="object-cover w-full h-full" />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {generatedOverlay && preview && (
+              <div className="space-y-2">
+                  <Label>Your New Avatar</Label>
+                  <div className="relative aspect-square w-full rounded-md overflow-hidden border-2 border-primary">
+                      <Image src={preview} alt="User photo background" fill className="object-cover" />
+                      <Image src={generatedOverlay} alt="Generated avatar style overlay" fill className="object-contain" />
+                  </div>
+              </div>
+            )}
+          </div>
+
 
           <div className="space-y-2">
-            <Label htmlFor="style-select">2. Choose a Style</Label>
+            <Label htmlFor="style-select">2. Choose a Style for the Overlay</Label>
             <Select onValueChange={setStyle} defaultValue={style}>
               <SelectTrigger id="style-select">
                 <SelectValue placeholder="Select a style" />
@@ -146,17 +159,9 @@ export default function AvatarGeneratorPage() {
             ) : (
               <Sparkles className="mr-2" />
             )}
-            {isLoading ? 'Generating Your Avatar...' : 'Generate Avatar'}
+            {isLoading ? 'Generating Style...' : 'Generate Avatar'}
           </Button>
 
-          {generatedAvatar && (
-            <div className="space-y-2">
-                <Label>Your New Avatar</Label>
-                <div className="aspect-square w-full rounded-md overflow-hidden border-2 border-primary">
-                    <Image src={generatedAvatar} alt="Generated avatar" width={400} height={400} className="object-cover w-full h-full" />
-                </div>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>
