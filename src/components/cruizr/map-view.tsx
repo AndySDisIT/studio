@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/tooltip';
 import { realmInfoMap } from './icons';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { MessageBoard } from './message-board';
 
 interface MapViewProps {
   activeRealm: Realm;
@@ -113,6 +114,7 @@ export function MapView({ activeRealm, veilMode }: MapViewProps) {
             {realmInfo.name} Realm
           </h2>
         </div>
+        {activeRealm === 'Professional' && <MessageBoard />}
       </div>
 
       <UserProfileCard

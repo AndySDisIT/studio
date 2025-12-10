@@ -1,4 +1,4 @@
-import type { User } from './types';
+import type { User, Post } from './types';
 
 export const mockUsers: User[] = [
   {
@@ -108,5 +108,26 @@ export const mockUsers: User[] = [
     position: { x: 32.088, y: -81.098 },
     avatar: 'https://picsum.photos/seed/user12/200/200',
     profile: 'Sometimes my arms bend back. Enigmatic and looking for a deep, possibly dangerous, connection. Not everything is as it seems.',
+  },
+];
+
+export const mockPosts: Post[] = [
+  {
+    id: 1,
+    userId: 1,
+    content: 'We are hiring a Senior Frontend Developer to work on our next-gen AI platform. Experience with Next.js and Tailwind is a must. DM me for details!',
+    timestamp: '2h ago',
+  },
+  {
+    id: 2,
+    userId: 7,
+    content: 'Looking for a collaborator on a new sustainable architecture project in Savannah. Seeking urban planners and material scientists. #sustainability #urbanplanning',
+    timestamp: '5h ago',
+  },
+  {
+    id: 3,
+    userId: 1,
+    content: 'Anyone attending the Tech Innovators conference next month? Would be great to connect with other engineers and entrepreneurs.',
+    timestamp: '1d ago',
   },
 ];

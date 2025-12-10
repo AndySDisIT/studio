@@ -35,3 +35,10 @@ export type VeilModeSettings = {
   hideNames: boolean;
   fuzzLocation: boolean;
 };
+
+export type Post = {
+  id: number;
+  userId: number;
+  content: string;
+  timestamp: string;
+};
