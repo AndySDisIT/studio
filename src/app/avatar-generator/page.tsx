@@ -8,7 +8,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Sparkles, Wand2 } from 'lucide-react';
 import { generateAvatar } from '@/ai/flows/generate-avatar';
 import Image from 'next/image';
-import { Label } from '@/components/ui/label';
 
 const avatarStyles = ["Anime", "Cyberpunk", "Fantasy", "Pixel Art", "Cartoon", "3D", "Abstract", "Futuristic"];
 
@@ -70,7 +69,7 @@ export default function AvatarGeneratorPage() {
 
           {generatedAvatar && (
               <div className="space-y-2">
-                  <Label>Your New Avatar</Label>
+                  <label className="text-sm font-medium">Your New Avatar</label>
                   <div className="relative aspect-square w-full rounded-md overflow-hidden border-2 border-primary">
                       <Image src={generatedAvatar} alt="Generated AI Avatar" width={400} height={400} className="object-cover" data-ai-hint="avatar abstract" />
                   </div>
@@ -78,7 +77,7 @@ export default function AvatarGeneratorPage() {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="style-select">1. Choose a Style</Label>
+            <label htmlFor="style-select" className="text-sm font-medium">1. Choose a Style</label>
             <Select onValueChange={setStyle} defaultValue={style}>
               <SelectTrigger id="style-select">
                 <SelectValue placeholder="Select a style" />
