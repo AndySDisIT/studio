@@ -36,7 +36,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     Icon: Sprout,
     color: 'text-primary',
     borderColor: 'border-primary',
-    description: 'Public activities, hobby connections',
+    description: 'Community events & positive connections',
     mapStyle: 'mapbox://styles/mapbox/outdoors-v12',
   },
   Dating: {
@@ -44,7 +44,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     Icon: HeartHandshake,
     color: 'text-pink-400',
     borderColor: 'border-pink-400',
-    description: 'Serious dating, romantic connections',
+    description: 'Intimate connections & date ideas',
     mapStyle: 'mapbox://styles/mapbox/dark-v11',
   },
   'Hook Up': {
@@ -52,7 +52,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     Icon: Flame,
     color: 'text-red-500',
     borderColor: 'border-red-500',
-    description: 'FWB, casual encounters',
+    description: 'Cruising spots & casual encounters',
     mapStyle: 'mapbox://styles/mapbox/satellite-streets-v12',
   },
   'Party/Etc': {
@@ -60,7 +60,7 @@ export const realmInfoMap: Record<Realm, RealmInfo> = {
     Icon: PartyPopper,
     color: 'text-purple-400',
     borderColor: 'border-purple-400',
-    description: 'Group fun, kinks, and wild experiences',
+    description: 'Erotic events & screened members',
     mapStyle: 'mapbox://styles/mapbox/satellite-streets-v12',
   },
   Ghost: {

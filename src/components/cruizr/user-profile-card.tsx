@@ -13,6 +13,7 @@ import { IcebreakerSuggester } from './icebreaker-suggester';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '../ui/scroll-area';
 import { ProfileSummaryGenerator } from './profile-summary-generator';
+import { CannedIcebreaker } from './canned-icebreaker';
 
 interface UserProfileCardProps {
   user: User | null;
@@ -30,6 +31,27 @@ export function UserProfileCard({
   if (!user) return null;
 
   const displayName = veilMode.hideNames ? user.initials : user.name;
+
+  const renderInteraction = () => {
+    switch (activeRealm) {
+      case 'Hook Up':
+        return <CannedIcebreaker />;
+      case 'Connect':
+      case 'Social':
+      case 'Dating':
+      case 'Party/Etc':
+      case 'Ghost':
+        return (
+          <IcebreakerSuggester
+            currentUserProfile="I am a software developer exploring new social connections on Cruizr."
+            connection={user}
+            realm={activeRealm}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <Dialog open={!!user} onOpenChange={onOpenChange}>
@@ -59,11 +81,7 @@ export function UserProfileCard({
                 <ProfileSummaryGenerator userProfile={user.profile} realm={activeRealm} />
             </div>
 
-            <IcebreakerSuggester
-              currentUserProfile="I am a software developer exploring new social connections on Cruizr."
-              connection={user}
-              realm={activeRealm}
-            />
+            {renderInteraction()}
           </div>
         </ScrollArea>
       </DialogContent>
