@@ -39,8 +39,8 @@ export function MessageBoard() {
   }));
 
   return (
-    <div className="absolute bottom-4 left-4 right-4 h-1/3 z-20 flex flex-col gap-2">
-       <div className="flex-1">
+    <div className="h-full flex flex-col gap-2">
+       <div className="flex-1 min-h-0">
         <ScrollArea className="h-full pr-4">
             <div className="flex flex-col gap-3">
             {postsWithUsers.map(({ post, user }) => (

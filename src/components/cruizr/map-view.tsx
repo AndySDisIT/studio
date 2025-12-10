@@ -17,6 +17,7 @@ import {
 import { realmInfoMap } from './icons';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { MessageBoard } from './message-board';
+import { ResourceHub } from './resource-hub';
 
 interface MapViewProps {
   activeRealm: Realm;
@@ -114,7 +115,16 @@ export function MapView({ activeRealm, veilMode }: MapViewProps) {
             {realmInfo.name} Realm
           </h2>
         </div>
-        {activeRealm === 'Professional' && <MessageBoard />}
+        {activeRealm === 'Connect' && (
+            <div className="absolute bottom-4 left-4 right-4 z-20 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="md:col-span-2">
+                    <MessageBoard />
+                </div>
+                <div className="md:col-span-1">
+                    <ResourceHub />
+                </div>
+            </div>
+        )}
       </div>
 
       <UserProfileCard

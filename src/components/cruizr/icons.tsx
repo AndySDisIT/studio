@@ -6,6 +6,7 @@ import {
   PartyPopper,
   Ghost,
   type LucideIcon,
+  LifeBuoy,
 } from 'lucide-react';
 import type { Realm, RealmInfo } from '@/lib/types';
 
@@ -22,12 +23,12 @@ export const CruizrLogo = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export const realmInfoMap: Record<Realm, RealmInfo> = {
-  Professional: {
-    name: 'Professional',
-    Icon: Handshake,
+  Connect: {
+    name: 'Connect',
+    Icon: LifeBuoy,
     color: 'text-blue-400',
     borderColor: 'border-blue-400',
-    description: 'Business networking, career connections',
+    description: 'Jobs, networking, and personal growth',
     mapStyle: 'mapbox://styles/mapbox/streets-v12',
   },
   Social: {

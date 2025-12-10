@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 
 export const realms = [
-  'Professional',
+  'Connect',
   'Social',
   'Dating',
   'Hook Up',
