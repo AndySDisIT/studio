@@ -50,7 +50,8 @@ const generateAvatarFlow = ai.defineFlow(
     });
 
     const seed = output || style.toLowerCase().replace(/\s+/g, '-');
-    const imageUrl = `https://picsum.photos/seed/${seed}/400/400`;
+    // Using a different image service that can provide more abstract/overlay-style images
+    const imageUrl = `https://picsum.photos/seed/${seed}/400/400?grayscale&blur=2`;
 
     return {
       avatarDataUri: imageUrl,
