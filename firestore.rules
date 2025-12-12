@@ -1,0 +1,54 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    // User profiles
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(userId);
+      
+      // User settings (private)
+      match /private/{document=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    
+    // User locations (for map feature)
+    match /locations/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(userId);
+    }
+    
+    // Messages and interactions
+    match /conversations/{conversationId} {
+      allow read: if isSignedIn() && 
+        request.auth.uid in resource.data.participants;
+      allow create: if isSignedIn();
+      
+      match /messages/{messageId} {
+        allow read: if isSignedIn() && 
+          request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+        allow create: if isSignedIn();
+      }
+    }
+    
+    // Realms and realm-specific data
+    match /realms/{realmId} {
+      allow read: if isSignedIn();
+    }
+    
+    // Default deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
