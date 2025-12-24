@@ -43,3 +43,15 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# Deployment artifacts
+deployment/logs/
+deployment/backups/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
