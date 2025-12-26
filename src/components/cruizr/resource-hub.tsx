@@ -18,7 +18,7 @@ export function ResourceHub() {
         </CardHeader>
         <CardContent className="flex flex-col items-center justify-center h-full pt-4">
             <p className="text-sm text-center text-muted-foreground mb-4">
-                Need help with your job search, addiction, or just want to get on your feet? We're here to help.
+                Need help with your job search, addiction, or just want to get on your feet? We&apos;re here to help.
             </p>
             <Button className="w-full bg-blue-500 hover:bg-blue-600">
                 Get Assistance

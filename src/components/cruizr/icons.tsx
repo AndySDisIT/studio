@@ -1,11 +1,9 @@
 import {
-  Handshake,
   Sprout,
   HeartHandshake,
   Flame,
   PartyPopper,
   Ghost,
-  type LucideIcon,
   LifeBuoy,
 } from 'lucide-react';
 import type { Realm, RealmInfo } from '@/lib/types';

@@ -18,9 +18,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import type { Realm, VeilModeSettings } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { Badge } from '../ui/badge';
 import Link from 'next/link';
-import { Wand2, LayoutDashboard } from 'lucide-react';
+import { LayoutDashboard } from 'lucide-react';
 
 interface RealmSidebarProps {
   activeRealm: Realm;

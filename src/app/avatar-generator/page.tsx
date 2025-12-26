@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Sparkles, Wand2, User } from 'lucide-react';
+import { Loader2, Sparkles, Wand2 } from 'lucide-react';
 import { generateAvatar } from '@/ai/flows/generate-avatar';
 import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -65,7 +65,7 @@ export default function AvatarGeneratorPage() {
             AI Avatar Stylizer
           </CardTitle>
           <CardDescription>
-            Create your "best life" image. We'll generate a style overlay for your photo.
+            Create your &ldquo;best life&rdquo; image. We&apos;ll generate a style overlay for your photo.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">

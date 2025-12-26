@@ -3,7 +3,7 @@
 import { mockPosts } from '@/lib/data';
 import { mockUsers } from '@/lib/data';
 import type { Post, User } from '@/lib/types';
-import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
+import { Card, CardHeader } from '../ui/card';
 import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 import { ScrollArea } from '../ui/scroll-area';
 import { Input } from '../ui/input';
