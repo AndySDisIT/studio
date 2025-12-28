@@ -1,5 +1,19 @@
 import type {Config} from 'tailwindcss';
 
+const systemFontStack = [
+  '-apple-system',
+  'BlinkMacSystemFont',
+  '"Segoe UI"',
+  'Roboto',
+  'Oxygen',
+  'Ubuntu',
+  'Cantarell',
+  '"Fira Sans"',
+  '"Droid Sans"',
+  '"Helvetica Neue"',
+  'sans-serif',
+];
+
 export default {
   darkMode: ['class'],
   content: [
@@ -10,8 +24,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['var(--font-inter)', 'sans-serif'],
-        headline: ['var(--font-inter)', 'sans-serif'],
+        body: systemFontStack,
+        headline: systemFontStack,
+        sans: systemFontStack,
         code: ['monospace'],
       },
       colors: {
