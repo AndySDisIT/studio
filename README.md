@@ -1,6 +1,6 @@
 # Cruizr - Intelligent Social Discovery Platform
 
-[![Deploy to Firebase](https://github.com/AndySDisIT/studio/workflows/Deploy%20to%20Firebase%20App%20Hosting/badge.svg)](https://github.com/AndySDisIT/studio/actions)
+[![Deploy to Firebase](https://github.com/AndySDisIT/studio/actions/workflows/firebase-deploy.yml/badge.svg)](https://github.com/AndySDisIT/studio/actions)
 [![Next.js](https://img.shields.io/badge/Next.js-15.3-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Firebase](https://img.shields.io/badge/Firebase-App%20Hosting-orange)](https://firebase.google.com/)

@@ -3,20 +3,33 @@ service cloud.firestore {
   match /databases/{database}/documents {
     // Users collection
     match /users/{userId} {
-      allow read: if request.auth != null;
+      // Users can only read their own profile for privacy
+      allow read: if request.auth != null && request.auth.uid == userId;
       allow write: if request.auth != null && request.auth.uid == userId;
     }
     
     // Locations collection (realm-specific)
     match /locations/{locationId} {
       allow read: if request.auth != null;
-      allow create: if request.auth != null;
+      // Only allow creating locations with proper ownership tracking
+      allow create: if request.auth != null 
+                    && request.resource.data.keys().hasAll(['createdBy', 'createdAt'])
+                    && request.resource.data.createdBy == request.auth.uid;
+      // Allow updating/deleting only by the creator
+      allow update, delete: if request.auth != null 
+                            && resource.data.createdBy == request.auth.uid;
     }
     
     // Messages collection
     match /messages/{messageId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null;
+      // Only sender and recipient can read messages
+      allow read: if request.auth != null
+                   && (request.auth.uid == resource.data.senderId
+                       || request.auth.uid == resource.data.recipientId);
+      // Only allow creating messages with proper sender/recipient fields
+      allow create: if request.auth != null
+                    && request.resource.data.keys().hasAll(['senderId', 'recipientId', 'createdAt'])
+                    && request.resource.data.senderId == request.auth.uid;
     }
   }
 }
